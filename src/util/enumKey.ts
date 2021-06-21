@@ -6,21 +6,9 @@ enum subpahtState {
 	isNormal = 2,
 }
 
-const enumKey = <T>(val: T): Common.EnumKeys => {
-  const result: Common.EnumKeys = {};
-  const setResultValue = (key: string, val: any, result: Common.EnumKeys) => {
-    const resultItem = result[key].value;
-    if (resultItem !== undefined) {
-				if (Array.isArray(resultItem) && resultItem.length >= 1) {
-					resultItem.push(val as never);
-				} else if (!Array.isArray(resultItem)) {
-					result[key] = [resultItem, val];
-				}
-			} else {
-				return (result[key] = val);
-			}
-		}
-  };
+const enumKey = <T>(val: T): Common.ResultType => {
+	const result: Common.ResultType = {};
+
 	const recuObj = (val: any, key = "", result: Common.ResultType): any => {
 		// console.log(result);
 
@@ -75,10 +63,7 @@ const getSubpathState = (subpath: string) => {
 	}
 };
 
-
-const analyzePath = (resultTemplate:any,path:string) =>{
-
-}
+const analyzePath = (resultTemplate: any, path: string) => {};
 
 const setValue = (path: string, value: any, result: any) => {
 	const pathArr = path.split(".");

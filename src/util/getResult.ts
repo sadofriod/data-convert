@@ -15,7 +15,7 @@ const getRestul = (target: any, mapping: Common.CalcKeysResult) => {
 		const item = mapping[key];
 		const sourceValue = getValue(mapping, item);
 		item.value = sourceValue;
-		return setValue(target, sourceValue);
+		// return setValue(target, sourceValue);
 	});
 };
 export default getRestul;

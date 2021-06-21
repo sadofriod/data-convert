@@ -13,6 +13,9 @@ function App() {
 	// const [currentSourceKey, setCurrentSourceKey] = useState<string>("");
 	// const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 	// const [targetSelectedKeys, setTargetSelectedKeys] = useState<string[]>([]);
+
+	console.log(dataKeyNode);
+
 	const targetDatastruct = [
 		{
 			outsideData: "",
@@ -86,6 +89,8 @@ function App() {
 	};
 	const renderDatastruct = () => {
 		const source = Object.keys(enumKey(targetDatastruct));
+		console.log(enumKey(targetDatastruct));
+
 		return source.map((item, index) => (
 			<button
 				key={index}
