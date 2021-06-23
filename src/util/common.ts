@@ -3,6 +3,7 @@ export const isObject = (val: any) => !Array.isArray(val) && typeof val === "obj
 export const anaylzePath = (path: string, relativeFlag?: string) => {
 	const pathArray = path.split(".");
 	const arrayReg = /\[\]/;
+	//TODO: Revers target path and get real target valve address
 	// const
 };
 
@@ -26,20 +27,24 @@ export const getCalcResult: Common.CalculateNode = (operation, value): any => {
 	return value;
 };
 
-export const getValue: Common.GetValue = (nodeMapping, node) => {
+export const getValue: Common.GetValue = (nodeMapping, sourceValueMap, node) => {
 	/**
 	 * TODO:
 	 * 1. Get previous node calculation result
 	 * 2. Append argument for caching current node calculation result
 	 */
 	const { previous, operation, sourceKey } = node;
+	const sourceVal = sourceKey.map((item) => sourceValueMap[item]);
 
 	if (previous) {
-		const val = previous.map((item) => nodeMapping[item].value);
-		return getCalcResult(operation || "direct-map", sourceKey, val);
+		const val = previous.map((item) => nodeMapping[item]);
+		return getCalcResult(operation || "direct-map", sourceKey, [...val, ...sourceVal]);
 	} else {
-		return getCalcResult(operation || "direct-map", sourceKey);
+		return getCalcResult(operation || "direct-map", sourceKey, sourceVal);
 	}
 };
 
-export const setValue: Common.SetValue = (obj, path, val) => {};
+export const setValue: Common.SetValue = (obj, node) => {
+	const { operation, targetKey } = node;
+	//TODO: Resolve sigle or multi target key
+};

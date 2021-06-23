@@ -3,18 +3,6 @@ declare namespace Common {
 		[key: string]: string | number | string[] | number[];
 	}
 
-	interface EnumKeysNode {
-		//Node value
-		value: any;
-
-		//Node val refence of meta data
-		ref: Object | Array;
-	}
-
-	interface EnumKeys {
-		[key: string]: EnumKeysNode;
-	}
-
 	type KeyMathOperation = "plus" | "timer";
 	type KeySetOperation = "union" | "diff";
 	type KeyDefaultOperation = "direct-map" | "map-by-index";
@@ -22,8 +10,9 @@ declare namespace Common {
 	type KeyOperation = KeyMathOperation | KeySetOperation | KeyDefaultOperation;
 
 	type CalcNode = {
-		sourceKey: string[] | string;
-		targetKey: string[] | string;
+		//Real path of origin object
+		sourceKey: string[];
+		targetKey: string[];
 		// previous calc-node code
 		previous?: string[];
 		// next calc-node code
@@ -45,11 +34,11 @@ declare namespace Common {
 	}
 
 	interface GetValue {
-		(calc: CalcKeysResult, val: CalcNode): CalcNode;
+		(calc: CalcKeysResult, sourceValMap: ResultType, val: CalcNode): CalcNode;
 	}
 
 	interface SetValue {
-		(obj: any, path: string, val: any): void;
+		(obj: any, node: CalcNode): void;
 	}
 
 	type CalculateNode = (operation: KeyOperation, val: any, previous?: any) => any;

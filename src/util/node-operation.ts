@@ -11,8 +11,8 @@ export const createNode: Common.CreateNode = (code, option) => {
 			code: code || uniqueId(),
 			node: {
 				value: null,
-				sourceKey: "",
-				targetKey: "",
+				sourceKey: [""],
+				targetKey: [""],
 			},
 		};
 	}
