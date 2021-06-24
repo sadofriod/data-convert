@@ -13,7 +13,7 @@ const enumKey = <T>(val: T): Common.ResultType => {
 		// console.log(result);
 
 		if (Array.isArray(val)) {
-			return val.forEach((item) => {
+			return val.forEach((item, index) => {
 				const nextKey = `${key}[]`;
 				// const next = val[item];
 

@@ -19,14 +19,34 @@ declare namespace Common {
 		next?: string[];
 		operation?: KeyOperation;
 		value: any;
+		// will be resolve data
+		tempValue?: any;
 	};
 
-	type CreateNode = (code?: string, option?: Common.CalcNode) => { code: string; node: CalcNode };
+	type CreateNode = (code?: string, option?: CalcNode) => { code: string; node: CalcNode };
 
 	type UpdateNode = (calcResult: CalcKeysResult, code: string, option: Partial<CalcNode>) => CalcKeysResult;
 
 	interface CalcKeysResult {
 		[code: string]: CalcNode;
+	}
+
+	interface PathNode {
+		updateCalc(code: string, node: Partial<CalcNode>): void;
+		calcNode: CalcNode;
+		//source value address & target value address
+		pathKey: "targetKey" | "sourceKey";
+		code: string;
+		path: string;
+		tempValue: any;
+	}
+
+	interface CalcListItemProps {
+		updateCalc(code: string, node: Partial<CalcNode>): void;
+		deleteCalc(code: string): void;
+		setCurrentCalcCode(code: string): void;
+		calcNode: CalcNode;
+		code: string;
 	}
 
 	interface CalcFunc {
