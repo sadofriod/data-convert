@@ -4,6 +4,7 @@ import "./App.css";
 import CalcListItem from "./CalcNode";
 import PathNode from "./pathNode";
 import enumKey from "./util/enumKey";
+import getResult from "./util/getResult";
 import { createNode } from "./util/node-operation";
 import { sourceData, targetData } from "./util/testData";
 
@@ -14,6 +15,7 @@ const target = enumKey(targetData);
 function App() {
 	const [calc, setCalc] = useState<Common.CalcKeysResult>({});
 	const [currentCalcKey, setCurrentCalcKey] = useState<string>("");
+	console.log(source);
 
 	const deleteCalc = (code: string) => {
 		const result = calc;
@@ -40,7 +42,7 @@ function App() {
 		const keys = Object.keys(calc);
 		return keys.map((key) => {
 			const node = calc[key];
-			return <CalcListItem key={key} updateCalc={updateCalc} deleteCalc={deleteCalc} setCurrentCalcCode={setCurrentCalcKey} code={key} calcNode={node} />;
+			return <CalcListItem key={key} updateCalc={updateCalc} deleteCalc={deleteCalc} setCurrentCalcCode={setCurrentCalcKey} code={key} sourceValMap={source} mapping={calc} calcNode={node} />;
 		});
 	};
 
@@ -61,7 +63,7 @@ function App() {
 				</div>
 				<div className="data_node_container">
 					<h3>目标数据节点</h3>
-					{renderPathKey(target, "sourceKey")}
+					{renderPathKey(target, "targetKey")}
 				</div>
 			</div>
 			<div className="center">{renderCalc()}</div>
@@ -70,6 +72,13 @@ function App() {
 					<div>数学运算</div>
 					<div>集合运算</div>
 					<button onClick={createCalc}>创建运算</button>
+					<button
+						onClick={() => {
+							console.log(getResult(targetData, calc, source));
+						}}
+					>
+						运行
+					</button>
 				</div>
 				<div className="convert_data"></div>
 			</div>

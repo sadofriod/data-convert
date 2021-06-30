@@ -1,3 +1,5 @@
+import { set } from "lodash";
+
 export const isObject = (val: any) => !Array.isArray(val) && typeof val === "object";
 
 export const anaylzePath = (path: string) => {
@@ -15,16 +17,23 @@ export const anaylzePath = (path: string) => {
 			item = item.replace("[]", "[0]");
 		}
 	});
+	const tempArr = pathArray.reverse().join(".");
 	return (index = NaN) => {
 		if (isNaN(index)) {
-			return pathArray.join(".");
+			return tempArr;
 		} else {
-			return pathArray.join(".").replace("[]", `[${index}]`);
+			return tempArr.replace("[]", `[${index}]`);
 		}
 	};
 };
 
-export const getCalcResult: Common.CalculateNode = (operation, value): any => {
+const directMap = (value: any[]) => {
+	return value.reduce((prev, acc) => {
+		return [...prev, ...acc];
+	}, []);
+};
+
+export const getCalcResult: Common.CalculateNode = (operation, sourceKey, value): any[] => {
 	switch (operation) {
 		case "diff":
 			break;
@@ -35,7 +44,7 @@ export const getCalcResult: Common.CalculateNode = (operation, value): any => {
 		case "union":
 			break;
 		case "direct-map":
-			break;
+			return directMap(value);
 		case "map-by-index":
 			break;
 		default:
@@ -59,14 +68,15 @@ export const getValue: Common.GetValue = (nodeMapping, sourceValueMap, node) => 
 export const setValue: Common.SetValue = (obj, node) => {
 	const { targetKey, value } = node;
 	//TODO: Resolve sigle or multi target key
+	console.log(value);
 	targetKey.forEach((key) => {
 		const path = anaylzePath(key);
 		if (Array.isArray(value)) {
 			value.forEach((val, index) => {
-				obj[index] = val;
+				console.log(path(index));
+
+				set(obj, path(index), val);
 			});
-		} else {
-			obj[path()] = value;
 		}
 	});
 };

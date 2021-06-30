@@ -1,11 +1,5 @@
 import { isObject } from "./common";
 
-enum subpahtState {
-	isSigleArr = 0,
-	isNormalArr = 1,
-	isNormal = 2,
-}
-
 const enumKey = <T>(val: T): Common.ResultType => {
 	const result: Common.ResultType = {};
 
@@ -23,7 +17,7 @@ const enumKey = <T>(val: T): Common.ResultType => {
 			const keys = Object.keys(val);
 
 			return keys.forEach((item) => {
-				const nextKey = `${key}.${item}`;
+				const nextKey = key ? `${key}.${item}` : item;
 				const next = val[item];
 				return recuObj(next, nextKey, result);
 			});
@@ -42,51 +36,6 @@ const enumKey = <T>(val: T): Common.ResultType => {
 	};
 	recuObj(val, "", result);
 	return result;
-};
-
-const chartRegSet = {
-	sigleArr: /^\[\]$/,
-	normalArr: /^\w+\[\]$/,
-	normal: /^\w+$/,
-};
-
-const getSubpathState = (subpath: string) => {
-	switch (true) {
-		case chartRegSet.normalArr.test(subpath):
-			return subpahtState.isNormalArr;
-		case chartRegSet.sigleArr.test(subpath):
-			return subpahtState.isSigleArr;
-		case chartRegSet.normal.test(subpath):
-			return subpahtState.isNormal;
-		default:
-			return -1;
-	}
-};
-
-const analyzePath = (resultTemplate: any, path: string) => {};
-
-const setValue = (path: string, value: any, result: any) => {
-	const pathArr = path.split(".");
-	// pathArr.forEach((subPath) => {
-	// 	const subpathState = getSubpathState(subPath);
-	// 	if (subpathState === subpahtState.isNormal) {
-	// 	}
-	// });
-	if (Array.isArray(value)) {
-		value.forEach((item) => {
-			if (item !== undefined) {
-			} else {
-			}
-		});
-	} else {
-	}
-};
-
-const translateEnumKyes = (enumKeys: { [key: string]: any }, result: any) => {
-	const keys = Object.keys(enumKeys);
-	keys.forEach((key) => {
-		const item = [key];
-	});
 };
 
 export default enumKey;

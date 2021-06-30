@@ -6,15 +6,18 @@ import { getValue, setValue } from "./common";
  * @param target Target onject
  * @param mapping
  */
-const getRestul = (target: any, mapping: Common.CalcKeysResult, sourceValueMap: Common.ResultType) => {
+const getResult = <Result = { [key: string]: any }>(result: Result, mapping: Common.CalcKeysResult, sourceValueMap: Common.ResultType): Result => {
 	const keys = Object.keys(mapping);
-	const result: typeof target = {};
+	// const result: any = {};
 	const previousCache: string[] = []; //Saving previous calc-node's code to optimize
+
 	keys.forEach((key) => {
 		const item = mapping[key];
 		const sourceValue = getValue(mapping, sourceValueMap, item);
+		// console.log(sourceValue);
 		item.value = sourceValue;
 		setValue(result, item);
 	});
+	return result;
 };
-export default getRestul;
+export default getResult;

@@ -20,7 +20,7 @@ declare namespace Common {
 		operation?: KeyOperation;
 		value: any;
 		// will be resolve data
-		tempValue?: any;
+		tempValue?: any[];
 	};
 
 	type CreateNode = (code?: string, option?: CalcNode) => { code: string; node: CalcNode };
@@ -47,6 +47,8 @@ declare namespace Common {
 		setCurrentCalcCode(code: string): void;
 		calcNode: CalcNode;
 		code: string;
+		mapping: CalcKeysResult;
+		sourceValMap: ResultType;
 	}
 
 	interface CalcFunc {
@@ -54,14 +56,14 @@ declare namespace Common {
 	}
 
 	interface GetValue {
-		(calc: CalcKeysResult, sourceValMap: ResultType, val: CalcNode): CalcNode;
+		(calc: CalcKeysResult, sourceValMap: ResultType, val: CalcNode): ReturnType<CalculateNode>;
 	}
 
 	interface SetValue {
 		(obj: any, node: CalcNode): void;
 	}
 
-	type CalculateNode = (operation: KeyOperation, val: any, previous?: any) => any;
+	type CalculateNode = (operation: KeyOperation, val: any, previous?: any) => any[];
 }
 
 // declare namespace Helpers {}

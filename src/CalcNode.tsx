@@ -3,7 +3,7 @@ import React from "react";
 const operationOption = ["direct-map", "map-by-index"];
 
 const CalcListItem: React.FC<Common.CalcListItemProps> = (props) => {
-	const { updateCalc, deleteCalc, calcNode, setCurrentCalcCode, code } = props;
+	const { updateCalc, deleteCalc, calcNode, setCurrentCalcCode, code, sourceValMap, mapping } = props;
 	const { targetKey, sourceKey, operation } = calcNode;
 	const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		updateCalc(code, {
@@ -17,7 +17,14 @@ const CalcListItem: React.FC<Common.CalcListItemProps> = (props) => {
 			<div>ID: {code}</div>
 			<div>
 				<div>
-					<button onClick={() => deleteCalc(code)}>delete</button>
+					<button onClick={() => deleteCalc(code)}>DEL</button>
+					{/* <button
+						onClick={() => {
+							console.log(getRestul(mapping, sourceValMap));
+						}}
+					>
+						RUN
+					</button> */}
 				</div>
 				<div>
 					<select value={operation} onChange={handleChange}>

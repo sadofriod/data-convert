@@ -10,9 +10,9 @@ export const createNode: Common.CreateNode = (code, option) => {
 		return {
 			code: code || uniqueId(),
 			node: {
-				value: null,
-				sourceKey: [""],
-				targetKey: [""],
+				value: [],
+				sourceKey: [],
+				targetKey: [],
 			},
 		};
 	}
